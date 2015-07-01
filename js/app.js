@@ -1,45 +1,102 @@
-var calculator = document.querySelector('#calculator');
-var readout = document.querySelector('#readout');
-var numButtons = document.querySelectorAll('.btn-num');
-var btnClear = document.querySelector('#btn-clear');
+// html elements
+var calculator = document.querySelector("#calculator");
+var readout = document.querySelector("#readout");
+var btnsNum = document.querySelectorAll(".btn-num");
 
-//btn-operator
 var btnPlus = document.querySelector('#btn-plus');
+var btnMinus = document.querySelector('#btn-minus');
+var btnMultiply = document.querySelector('#btn-multiply');
+var btnDivide = document.querySelector('#btn-divide');
 
-//btn-equals
 var btnEquals = document.querySelector('#btn-equals');
 
-var currentOperation;
+var btnClear = document.querySelector('#btn-clear');
 
-//button functions
+
+//calculation array
+var calcArray = ['','',''];
+
+var recordNum = 0;
+
+for(i = 0; i < btnsNum.length; i ++) {
+    btnsNum[i].addEventListener('click', input);
+    btnsNum[i].val = i;
+}
+btnsNum[10].val = '.';
+
 function input(){
-    readout.innerHTML += this.innerHTML;
-    currentOperation += this.val;
-    //console.log('The value of this is ' + this.val);
+    if(isNaN(readout.innerHTML)) {
+        readout.innerHTML = '';
+    }
+    readout.innerHTML += this.val;
+    if(recordNum == 0){
+        calcArray[0] += this.val;
+    } else {
+        calcArray[2] += this.val;
+    }
+    console.log(calcArray);
 }
 
-function reset() {
-    readout.innerHTML = "";
-}
+///////
 
-//addition function
-function addThis(firstVal,secondVal){
-    //use this function as the 2nd index of a 3-index array, where the 1st and 2nd indeces are the values being passed to this function.
-}
+function setOperator() {
+    calcArray[1] = this.operator;
+    recordNum = 2;
 
-function equals() {
-    //using eval() method;
-    //readout.innerHTML = eval(readout.innerText);
-}
+    readout.innerHTML = this.innerHTML;
 
-for(i = 0; i < numButtons.length; i ++) {
-    numButtons[i].addEventListener('click',input);
-    numButtons[i].val = i;
+    //readout.innerHTML = '';
+    console.log(calcArray);
 }
 
 
+////////// Operations: ////////////
+function sum(num1,num2) {
+    return parseFloat(num1) + parseFloat(num2);
+}
 
-btnPlus.addEventListener('click',input);
-btnEquals.addEventListener('click',equals);
+function difference(num1,num2) {
+    return parseFloat(num1) - parseFloat(num2);
+}
 
-btnClear.addEventListener('click',reset);
+function divisionOf(num1,num2) {
+    return parseFloat(num1) / parseFloat(num2);
+}
+
+function multiplicationOf(num1,num2) {
+    return parseFloat(num1) * parseFloat(num2);
+}
+////////////// EVALUATE ////////////////////
+
+function evaluate() {
+    var result = calcArray[1](calcArray[0],calcArray[2]);
+    console.log(result);
+    readout.innerHTML = result;
+}
+btnEquals.addEventListener('click',evaluate);
+
+////////////// CLEAR ////////////////////
+function clearCalc() {
+    recordNum = 0;
+    calcArray = ['','',''];
+    readout.innerHTML = '';
+}
+
+btnClear.addEventListener('click', clearCalc);
+
+
+//////////////// Assign Operators to buttons //////////////////
+
+btnPlus.operator = sum;
+btnPlus.addEventListener('click',setOperator);
+
+btnMinus.operator = difference;
+btnMinus.addEventListener('click',setOperator);
+
+btnMultiply.operator = multiplicationOf;
+btnMultiply.addEventListener('click',setOperator);
+
+btnDivide.operator = divisionOf;
+btnDivide.addEventListener('click',setOperator);
+
+//////////////////////////////////
