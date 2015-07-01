@@ -9,8 +9,7 @@ body{
     width: 400px;
     height: 350px;
     border: 1px solid #333;
-    margin: 0 auto;
-    margin-top:120px;
+    margin: 120px auto 0;
     background:#000;
 }
 
@@ -39,7 +38,6 @@ button {
     border: 1px solid #333333;
     background-color:#AAAAAA;
     cursor:pointer;
-
     -webkit-transition: all .2s; /* Safari */
     transition: all .2s;
 }
