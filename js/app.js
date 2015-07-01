@@ -5,9 +5,7 @@ var maxCharacters = 11;
 //var calculator = document.querySelector("#calculator");
 var readout = document.querySelector("#readout");
 var btnsNum = document.querySelectorAll(".btn-num");
-
 var btnsOperator = document.querySelectorAll(".btn-operator");
-
 var btnPlus = document.querySelector('#btn-plus');
 var btnMinus = document.querySelector('#btn-minus');
 var btnMultiply = document.querySelector('#btn-times');
@@ -46,7 +44,7 @@ function inputDigit(){
     }
 }
 
-////////// Operations: ////////////
+////////// OPERATORS: ////////////
 
 function stripOperatorSelectedClass(){
     for(var i = 0; i < btnsOperator.length; i ++) {
@@ -55,14 +53,10 @@ function stripOperatorSelectedClass(){
 }
 
 function setOperator() {
-
     stripOperatorSelectedClass();
     this.className += ' operator-selected';
-
     calcArray[1] = this.operator;
     recordNum = 2;
-
-
 }
 
 function sum(num1,num2) {
@@ -118,7 +112,6 @@ btnMultiply.addEventListener('click',setOperator);
 btnDivide.operator = divisionOf;
 btnDivide.addEventListener('click',setOperator);
 
-
-
 ////////////// Begin ////////////////////
+
 initCalculator();
