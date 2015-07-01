@@ -5,7 +5,7 @@ var btnsNum = document.querySelectorAll(".btn-num");
 
 var btnPlus = document.querySelector('#btn-plus');
 var btnMinus = document.querySelector('#btn-minus');
-var btnMultiply = document.querySelector('#btn-multiply');
+var btnMultiply = document.querySelector('#btn-times');
 var btnDivide = document.querySelector('#btn-divide');
 var btnEquals = document.querySelector('#btn-equals');
 var btnClear = document.querySelector('#btn-clear');
@@ -70,6 +70,9 @@ function evaluate() {
     var result = calcArray[1](calcArray[0],calcArray[2]);
     console.log(result);
     readout.innerHTML = result;
+
+    //set result to calcArray[1] and clear the rest so that more calculations can be run
+    calcArray = [result,'',''];
 }
 btnEquals.addEventListener('click',evaluate);
 
