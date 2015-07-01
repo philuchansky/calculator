@@ -7,9 +7,7 @@ var btnPlus = document.querySelector('#btn-plus');
 var btnMinus = document.querySelector('#btn-minus');
 var btnMultiply = document.querySelector('#btn-multiply');
 var btnDivide = document.querySelector('#btn-divide');
-
 var btnEquals = document.querySelector('#btn-equals');
-
 var btnClear = document.querySelector('#btn-clear');
 
 
@@ -20,7 +18,7 @@ var recordNum = 0;
 
 for(i = 0; i < btnsNum.length; i ++) {
     btnsNum[i].addEventListener('click', input);
-    btnsNum[i].val = i;
+    btnsNum[i].val = parseFloat(btnsNum[i].innerHTML);
 }
 btnsNum[10].val = '.';
 
