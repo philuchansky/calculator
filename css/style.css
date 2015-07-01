@@ -2,6 +2,7 @@
 
 body{
     font-family:Lato, sans-serif;
+    color:#555;
 }
 
 #calculator {
@@ -9,9 +10,9 @@ body{
     height: 350px;
     border: 1px solid #333;
     margin: 0 auto;
-    -webkit-box-shadow: 0px 0px 10px rgba(0,0,0,.5);
-    -moz-box-shadow: 0px 0px 10px rgba(0,0,0,.5);
-    box-shadow: 0px 0px 10px rgba(0,0,0,.5);
+    /*-webkit-box-shadow: 0px 0px 10px rgba(0,0,0,.5);*/
+    /*-moz-box-shadow: 0px 0px 10px rgba(0,0,0,.5);*/
+    /*box-shadow: 0px 0px 10px rgba(0,0,0,.5);*/
     margin-top:120px;
 }
 
@@ -35,5 +36,14 @@ button {
     float:left;
     font-size: 32px;
     font-family:Lato, sans-serif;
+    color:#FFF;
+    border: 1px solid #333333;
+}
+
+.btn-num {
+    background-color:#3F90C9;
+}
+.btn-operator {
+    background-color:#555;
 }
 
