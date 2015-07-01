@@ -28,23 +28,27 @@ var calcArray = ['','',''];
 function inputDigit(){
     //check if maxCharacters is reached. if not, then input accordingly
     if(readout.innerText.length <= maxCharacters) {
-        //how to begin entering characters if contents of readout are not currently numbers
-        if(calcArray[recordNum] == '') {
-            readout.innerHTML = '';
+        //if the first number clicked is not '0'
+        if(this.val != 0){
+            //how to begin entering characters if contents of readout are not currently numbers
+            if(calcArray[recordNum] == '') {
+                readout.innerHTML = '';
+            }
+            readout.innerHTML += this.val;
+            if(recordNum == 0){
+                calcArray[0] += this.val;
+            } else {
+                calcArray[2] += this.val;
+                stripOperatorSelectedClass();
+            }
+            charactersEntered ++;
+
+            console.log(calcArray);
         }
-        readout.innerHTML += this.val;
-        if(recordNum == 0){
-            calcArray[0] += this.val;
-        } else {
-            calcArray[2] += this.val;
-        }
-        charactersEntered ++;
-        
-        console.log(calcArray);
     }
 }
 
-////////// OPERATORS: ////////////
+////////// OPERATOR Button Methods: ////////////
 
 function stripOperatorSelectedClass(){
     for(var i = 0; i < btnsOperator.length; i ++) {
@@ -55,9 +59,17 @@ function stripOperatorSelectedClass(){
 function setOperator() {
     stripOperatorSelectedClass();
     this.className += ' operator-selected';
+    if(calcArray[2] != '') {
+        evaluate();
+    }
+
     calcArray[1] = this.operator;
     recordNum = 2;
+
+    console.log(calcArray);
 }
+
+////////// Operator Functions: ////////////
 
 function sum(num1,num2) {
     return parseFloat(num1) + parseFloat(num2);
@@ -74,11 +86,12 @@ function divisionOf(num1,num2) {
 function multiplicationOf(num1,num2) {
     return parseFloat(num1) * parseFloat(num2);
 }
+
 ////////////// EVALUATE ////////////////////
 
 function evaluate() {
     var result = calcArray[1](calcArray[0],calcArray[2]);
-    console.log(result);
+    console.log(calcArray);
     readout.innerHTML = result;
 
     //set result to calcArray[1] and clear the rest so that more calculations can be run
@@ -94,6 +107,7 @@ function initCalculator() {
     calcArray = ['','',''];
     readout.innerHTML = '0';
     charactersEntered = 0;
+    stripOperatorSelectedClass();
 }
 
 btnClear.addEventListener('click', initCalculator);

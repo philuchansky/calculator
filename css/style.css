@@ -3,12 +3,13 @@
 body{
     font-family:Lato, sans-serif;
     color:#555;
+    background: #EAEAEA;
 }
 
 #calculator {
     width: 400px;
     height: 350px;
-    border: 1px solid #333;
+    border: 2px solid #333;
     margin: 120px auto 0;
     background:#000;
 }
