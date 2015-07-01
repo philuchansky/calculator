@@ -1,7 +1,12 @@
+//global vars
+var maxCharacters = 11;
+
 // html elements
-var calculator = document.querySelector("#calculator");
+//var calculator = document.querySelector("#calculator");
 var readout = document.querySelector("#readout");
 var btnsNum = document.querySelectorAll(".btn-num");
+
+var btnsOperator = document.querySelectorAll(".btn-operator");
 
 var btnPlus = document.querySelector('#btn-plus');
 var btnMinus = document.querySelector('#btn-minus');
@@ -10,45 +15,56 @@ var btnDivide = document.querySelector('#btn-divide');
 var btnEquals = document.querySelector('#btn-equals');
 var btnClear = document.querySelector('#btn-clear');
 
-
-//calculation array
-var calcArray = ['','',''];
-
-var recordNum = 0;
-
-for(i = 0; i < btnsNum.length; i ++) {
-    btnsNum[i].addEventListener('click', input);
+for(var i = 0; i < btnsNum.length; i ++) {
+    btnsNum[i].addEventListener('click', inputDigit);
     btnsNum[i].val = parseFloat(btnsNum[i].innerHTML);
 }
 btnsNum[10].val = '.';
 
-function input(){
-    if(isNaN(readout.innerHTML)) {
-        readout.innerHTML = '';
+var charactersEntered;
+var recordNum;
+var calcArray = ['','',''];
+
+//////////////////////////////////
+
+function inputDigit(){
+    //check if maxCharacters is reached. if not, then input accordingly
+    if(readout.innerText.length <= maxCharacters) {
+        //how to begin entering characters if contents of readout are not currently numbers
+        if(calcArray[recordNum] == '') {
+            readout.innerHTML = '';
+        }
+        readout.innerHTML += this.val;
+        if(recordNum == 0){
+            calcArray[0] += this.val;
+        } else {
+            calcArray[2] += this.val;
+        }
+        charactersEntered ++;
+        
+        console.log(calcArray);
     }
-    readout.innerHTML += this.val;
-    if(recordNum == 0){
-        calcArray[0] += this.val;
-    } else {
-        calcArray[2] += this.val;
-    }
-    console.log(calcArray);
 }
 
-///////
+////////// Operations: ////////////
+
+function stripOperatorSelectedClass(){
+    for(var i = 0; i < btnsOperator.length; i ++) {
+        btnsOperator[i].className = 'btn-operator';
+    }
+}
 
 function setOperator() {
+
+    stripOperatorSelectedClass();
+    this.className += ' operator-selected';
+
     calcArray[1] = this.operator;
     recordNum = 2;
 
-    readout.innerHTML = this.innerHTML;
 
-    //readout.innerHTML = '';
-    console.log(calcArray);
 }
 
-
-////////// Operations: ////////////
 function sum(num1,num2) {
     return parseFloat(num1) + parseFloat(num2);
 }
@@ -73,18 +89,20 @@ function evaluate() {
 
     //set result to calcArray[1] and clear the rest so that more calculations can be run
     calcArray = [result,'',''];
+
+    stripOperatorSelectedClass();
 }
 btnEquals.addEventListener('click',evaluate);
 
 ////////////// CLEAR ////////////////////
-function clearCalc() {
+function initCalculator() {
     recordNum = 0;
     calcArray = ['','',''];
-    readout.innerHTML = '';
+    readout.innerHTML = '0';
+    charactersEntered = 0;
 }
 
-btnClear.addEventListener('click', clearCalc);
-
+btnClear.addEventListener('click', initCalculator);
 
 //////////////// Assign Operators to buttons //////////////////
 
@@ -100,4 +118,7 @@ btnMultiply.addEventListener('click',setOperator);
 btnDivide.operator = divisionOf;
 btnDivide.addEventListener('click',setOperator);
 
-//////////////////////////////////
+
+
+////////////// Begin ////////////////////
+initCalculator();

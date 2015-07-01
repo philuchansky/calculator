@@ -51,6 +51,8 @@ button:active, button:focus {
 /*number buttons*/
 .btn-num {
     background-color:#3F90C9;
+    font-size: 40px;
+    font-weight: bold;
 }
 .btn-num:hover {
     background-color: #4daef4;
@@ -60,14 +62,18 @@ button:active, button:focus {
 }
 
 /*operator buttons*/
-.btn-operator {
+.btn-operator, #btn-clear, #btn-equals {
     background-color:#555;
 }
-.btn-operator:hover {
+.btn-operator:hover, #btn-clear:hover, #btn-equals:hover {
     background-color: #737373;
 }
-.btn-operator:active {
+.btn-operator:active, #btn-clear:active, #btn-equals:active {
     background-color: #363636;
+}
+
+.operator-selected {
+    background-color:#999!important;
 }
 
 /*clear button*/
